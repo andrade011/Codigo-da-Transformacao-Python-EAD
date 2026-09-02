@@ -1,27 +1,25 @@
-# 1 . Criando um arquivo TXT com o nome "nome_arquivo.txt" 
-# e escrevendo algumas informações nele.
-nome_arquivo = "dados_arquivo.txt"
+import csv
 
+nome_arquivo = "notas_alunos.csv"
 
-# 2 . Conteúdo a ser escrito no arquivo
-# --- ESCRITA ---
-conteudo = [
-    "Ivan Silva;40 anos;02899-000;947541;ivanpaulino@mail.com\n",
-    "Beatriz Vitoria;30 anos;057193-000;978786;beavitoria@mail.com\n",
-    "Eric Renan;17 anos;089880-100;98799;ericrenan@gmail.com\n"
+# --- 1. Adicionar / Salvar notas em CSV ---
+alunos_notas = [
+    ["Nome", "Nota1", "Nota2", "Media"],
+    ["Ivan Silva", 8.5, 7.0, 7.75],
+    ["Beatriz Vitoria", 9.0, 9.5, 9.25],
+    ["Eric Renan", 6.0, 5.5, 5.75]
 ]
 
+# Escrevendo no arquivo CSV
+with open(nome_arquivo, mode="w", newline="", encoding="utf-8") as arquivo:
+    escritor = csv.writer(arquivo)
+    escritor.writerows(alunos_notas)
 
-# 3 . Escrevendo no arquivo
-with open(nome_arquivo, "w", encoding="utf-8") as arquivo:
-    arquivo.writelines(conteudo)
-print(f"✅ Arquivo '{nome_arquivo}' criado e escrito com sucesso!")
+print(f"📊 Dados de notas salvos em '{nome_arquivo}' com sucesso!")
 
-
-
-# 4 . Lendo o conteúdo do arquivo
-# --- LEITURA ---
-print("\n--- Lendo o conteúdo do arquivo TXT ---")
-with open(nome_arquivo, "r", encoding="utf-8") as arquivo:
-    texto = arquivo.read()
-    print(texto)
+# --- 2. Carregar e exibir informações do CSV ---
+print("\n--- 📖 Lendo e exibindo notas do arquivo CSV ---")
+with open(nome_arquivo, mode="r", encoding="utf-8") as arquivo:
+    leitor = csv.reader(arquivo)
+    for linha in leitor:
+        print(f"Aluno: {linha[0]:<15} | Nota 1: {linha[1]:<5} | Nota 2: {linha[2]:<5} | Média: {linha[3]}")
